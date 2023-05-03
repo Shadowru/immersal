@@ -465,6 +465,8 @@ const createBird = asset => {
                 object.quaternion.slerpQuaternions(prevPoint.q, newPoint.q, phase)
             }
 
+            //console.log('upd tick')
+
             mixer.update(delta)
         },
         startAnimation: (pP) => {

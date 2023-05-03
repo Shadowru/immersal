@@ -169,6 +169,26 @@ const placegroundScenePipelineModule = () => {
   }
 }
 
+const getParam = (paramName) => {
+  try {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const paramVal = urlParams.get(paramName);
+    return parseFloat(paramVal);
+  } catch (ex) {
+
+  }
+  return 0.0
+}
+
+const getOffsets = () => {
+  const offsets = {x: 0, y: 0, z: 0}
+  offsets.x = getParam('x')
+  offsets.y = getParam('y')
+  offsets.z = getParam('z')
+  return offsets
+}
+
 // Copyright (c) 2023 Immersal - Part of Hexagon
 
 // Returns a pipeline module that can be used with Immersal's VPS.
@@ -179,7 +199,13 @@ const immersalPipelineModule = () => {
 
     const birdRig  = new THREE.Object3D()
 
-    birdRig.position.set(0, 18.440, 43.562)
+    const offsets = getOffsets();
+
+    birdRig.position.set(
+        0 + offsets.x,
+        18.440 + offsets.y,
+        43.562 + offsets.z
+    )
     //birdRig.position.set(0, -5, -15)
 
     window.startBirds(birdRig)
