@@ -68,7 +68,7 @@ const placegroundScenePipelineModule = () => {
     surface.receiveShadow = true
     scene.add(surface)
 
-    loadPLY(MAP_IDS[0].id)
+    //loadPLY(MAP_IDS[0].id)
 
     // Set the initial camera position relative to the scene we just laid out. This must be at a
     // height greater than y=0.
@@ -145,7 +145,7 @@ const placegroundScenePipelineModule = () => {
       // Add objects to the scene and set starting camera position.
       initXrScene({scene, camera, renderer})
 
-      canvas.addEventListener('touchstart', placeObjectTouchHandler, true)  // Add touch listener.
+      //canvas.addEventListener('touchstart', placeObjectTouchHandler, true)  // Add touch listener.
 
       // prevent scroll/pinch gestures on canvas
       canvas.addEventListener('touchmove', (event) => {
@@ -176,6 +176,19 @@ const placegroundScenePipelineModule = () => {
 const immersalPipelineModule = () => {
 
   const initXrScene = ({scene, camera, renderer}) => {
+
+    const birdRig  = new THREE.Object3D()
+
+    birdRig.position.set(0, 18.440, 43.562)
+    //birdRig.position.set(0, -5, -15)
+
+    window.startBirds(birdRig)
+
+    testModel = birdRig
+
+    scene.add(testModel)
+
+    /*
     const modelFile = 'cube.glb'
     const loader = new THREE.GLTFLoader()
 
@@ -186,7 +199,7 @@ const immersalPipelineModule = () => {
     testModel = cube
     //testModel.visible = false
     scene.add( testModel );
-*/
+
     loader.load(
         modelFile,  // resource URL.
         (gltf) => {
@@ -202,6 +215,7 @@ const immersalPipelineModule = () => {
 
         }
     )
+ */
   }
 
   return {
@@ -263,7 +277,7 @@ const onxrloaded = () => {
   ])
 
   // Open the camera and start running the camera run loop.
-  XR8.run({canvas: document.getElementById('camerafeed')})
+  XR8.run({canvas: document.getElementById('camerafeed'), allowedDevices: XR8.XrConfig.device().ANY})
 }
 
 // Show loading screen before the full XR library has been loaded.
